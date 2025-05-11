@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: flask_ai_app
+    ports:
+      - "5000:5000"  
+    volumes:
+      - .:/app 
+    environment:
+      - FLASK_ENV=development 
+      - FLASK_APP=app.py  
+    depends_on:
+      - redis 
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
